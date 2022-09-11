@@ -2,14 +2,19 @@
 
 import csv
 import json
+import pandas as pd
 
 
-def createJSON(CSVFile, JSONFile):
+def createJSON(CSVFile):
     """createJSON.
+
+    Takes a CSVFile and returns a JSON
 
     Args:
         CSVFile: path to a CSV file
-        JSONFile: path to a JSON file our function will create as output
+
+    Returns:
+        A JSON object
     """
 
     # output dict
@@ -24,16 +29,49 @@ def createJSON(CSVFile, JSONFile):
             key = rows['CK']
             outputdict[key] = rows
 
-    # Once we have all our data, generate our output file JSONFile
-    with open(JSONFile, 'w', encoding='utf=8') as jsonFP:
-        jsonFP.write(json.dumps(outputdict, indent=4))
+    # # Once we have all our data, generate our output file JSONFile
+    # with open(JSONFile, 'w', encoding='utf=8') as jsonFP:
+    #     jsonFP.write(json.dumps(outputdict, indent=4))
+
+    json_object = json.dumps(outputdict)
+    return json_object  # TODO: return false if error
+
+
+def nestJson(mainJSON, newJSON):
+    """nestJson.
+
+    Nest newJSON into mainJSON. Both must exist and be well formed; i.e:
+        - First branch of mainJSON must be 'CK'
+        - CK field must exist in newJSON and be the first field
+
+    CK keys can be duplicated and they will be nested under the same branch.
+
+    :param mainJSON: One existing JSON to serve as foundation for our final
+        dataset
+    :param newJSON: new JSON file to be appended and nested under first  branch
+    """
+
+
+
+def storeJSON(myJSON, myJSONFile):
+    """storeJSON.
+
+    Args:
+        myJSON:
+        myJSONFile:
+    """
+    pass
 
 
 # Main routine
 
 # Var init
 myCSV = r'input/employees.csv'
-myJSON = r'output/employees.json'
+myJSON = r'output/output.json'
 
 # Do the magic
-createJSON(myCSV, myJSON)
+# TODO: list every csv file in input sorted by size from highest to lowest
+# for loop to generate every json file. I decided to keep info in its own file
+#   and join them later
+my_output = createJSON(myCSV)
+print(my_output)
