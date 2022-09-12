@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 import csv
+import glob
 import json
+import os
 
 
 def createJSON(CSVFile):
@@ -36,6 +38,24 @@ def createJSON(CSVFile):
     return json_object  # TODO: return false if error
 
 
+def get_input_files(input_directory):
+    """get_input_files.
+
+    Read input directory and look for csv files
+
+    Args:
+        input_directory:
+    """
+
+    # Find all csv in input_director
+    # TODO: output logger if found any non csv file
+    file_list = filter(os.path.isfile, glob.glob(input_directory + '*.csv'))
+    # Sort them
+    file_list = sorted(file_list, key=lambda x: os.stat(x).st_size)
+
+    return file_list
+
+
 def nestJson(mainJSON, newJSON):
     """nestJson.
 
@@ -65,17 +85,11 @@ def storeJSON(myJSON, myJSONFile):
     """
     pass
 
+
 def main():
-    # Var init
-    myCSV = r'input/employees.csv'
-    myJSON = r'output/output.json'
-
-    # Do the magic
-    # TODO: list every csv file in input sorted by size from highest to lowest
-    #   and join them later
-    # my_output = createJSON(myCSV)
-    # print(my_output)
+    csv_input_directory = 'input/'  # Must end with a /
+    print(get_input_files(csv_input_directory))
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     main()
