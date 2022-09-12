@@ -2,7 +2,6 @@
 
 import csv
 import json
-import pandas as pd
 
 
 def createJSON(CSVFile):
@@ -50,7 +49,11 @@ def nestJson(mainJSON, newJSON):
         dataset
     :param newJSON: new JSON file to be appended and nested under first  branch
     """
-
+    main_dict = json.loads(mainJSON)
+    print("This is my type")
+    print(type(mainJSON))
+    print()
+    print(mainJSON)
 
 
 def storeJSON(myJSON, myJSONFile):
@@ -62,16 +65,17 @@ def storeJSON(myJSON, myJSONFile):
     """
     pass
 
+def main():
+    # Var init
+    myCSV = r'input/employees.csv'
+    myJSON = r'output/output.json'
 
-# Main routine
+    # Do the magic
+    # TODO: list every csv file in input sorted by size from highest to lowest
+    #   and join them later
+    # my_output = createJSON(myCSV)
+    # print(my_output)
 
-# Var init
-myCSV = r'input/employees.csv'
-myJSON = r'output/output.json'
 
-# Do the magic
-# TODO: list every csv file in input sorted by size from highest to lowest
-# for loop to generate every json file. I decided to keep info in its own file
-#   and join them later
-my_output = createJSON(myCSV)
-print(my_output)
+if __name__ == "main":
+    main()
