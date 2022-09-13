@@ -85,9 +85,11 @@ def pandas_create_JSON(CSV_file, outputdir):
 
     output_file_name = os.path.basename(CSV_file)
     output_file_name = outputdir + output_file_name + ".json"  # We DO want .csv.json
-    # print(f'Reading {CSV_file} and storing it in {output_file_name}')
 
     df = pd.DataFrame(pd.read_csv(CSV_file, header=0))
+    # TODO: add checks for field integrity
+    #   - amount of columns == amount of fields
+    #   - further injection checks (column and fields)
     df.to_json(output_file_name, orient="records")
 
 
