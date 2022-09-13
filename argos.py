@@ -33,15 +33,19 @@ def create_main_dict(input_directory, output_file_name):
                 if one_dict['CK'] in main_dict.keys():
                     # TODO: if CK already exists nest it with filename as branch
                     print(f'reading {datafile_origin} since it exists')
-                    main_dict[one_dict['CK']][datafile_origin] = { datafile_origin: one_dict}
+                    main_dict[one_dict['CK']][datafile_origin] = one_dict
                 else:
                     # if doest'n exist create and nest with filename as branch
                     print(f'reading {datafile_origin}')
                     main_dict[one_dict['CK']] = { datafile_origin: one_dict}
-                pprint.pprint(main_dict)
+                # pprint.pprint(main_dict)
 
-    print("and this is our main dict")
     # pprint.pprint(main_dict)
+
+    # Dict to JSON and saving file
+    json_string = json.dumps(main_dict)
+    json_file = open('output/main.json', 'w')
+    json_file.write(json_string)
 
 
 def get_input_files(input_directory, extension):
